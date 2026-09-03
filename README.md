@@ -7,6 +7,9 @@ is drawn in code on a canvas: no sprite sheet, no image files. No server, no sig
 **Status:** milestones 1 and 2 of 7 are done — the game is playable, the opponent is a
 deliberate stopgap. See [`docs/04-state/backlog.md`](docs/04-state/backlog.md).
 
+Releases and the Pages deploy are automated from `main`; the version comes from
+Conventional Commit prefixes. The contract is in [`CLAUDE.md`](CLAUDE.md).
+
 ## Features
 
 - **The board has no edges**
