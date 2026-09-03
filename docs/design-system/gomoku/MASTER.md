@@ -68,6 +68,7 @@ Chế độ tối không phải đảo màu giấy, mà là **đổi vật liệ
 | Kẻ ô nhỏ | `--rule-minor` | `#333A42` | 1.49:1 vs bảng — cố ý thấp |
 | Kẻ ô mốc 5 | `--rule-major` | `#4A535D` | 2.19:1 vs bảng — cố ý thấp |
 | Chữ thường | `--ink` | `#E8E6E1` | 13.71:1 ✓ |
+| Chữ đậm / tiêu đề / nền nút chính | `--ink-strong` | `#FDFCFA` | 16.67:1 vs bảng ✓ · chữ `#191C20` trên nút này 16.67:1 ✓ |
 | Chữ mờ | `--ink-muted` | `#9AA3AD` | 6.69:1 ✓ |
 | **Quân người chơi (X)** | `--mark-human` | `#E6EDF5` | **14.49:1** ✓ |
 | **Quân máy (O)** | `--mark-ai` | `#CE6A62` | **4.77:1** ✓ · **3.04:1** vs quân người ✓ |
@@ -76,6 +77,13 @@ Chế độ tối không phải đảo màu giấy, mà là **đổi vật liệ
 | Focus | `--focus` | `#7AA7FF` | 7.16:1 ✓ |
 | Ranh giới component | `--border` | `#6B7684` | 3.70:1 vs bảng ✓ |
 | Nguy hiểm | `--danger` | `#F2938C` | 7.59:1 ✓ |
+
+Bổ sung 2026-09-03 sau rà soát: §2 ban đầu **thiếu** `--ink-strong`, nên `.btn-primary`
+ở §8 (`background: var(--ink-strong)`) không thoả được ở chế độ tối — nó rơi về `--ink` và
+làm tiêu đề, wordmark, nền nút chính trùng một giá trị, mất bậc phân cấp mà chế độ sáng có
+(17.12:1 so với 12.97:1). Đã thêm `#FDFCFA`: bậc phân cấp so với `--ink` là 1.22:1, khớp
+với bậc 1.32:1 của chế độ sáng. Không dùng `#FFFFFF` — trắng tinh phá quy tắc "trắng và
+đen phải có tông" của chính hướng thẩm mỹ này.
 
 ## 3. Ba quyết định a11y phải hiểu trước khi sửa màu
 
