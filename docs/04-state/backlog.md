@@ -28,13 +28,25 @@ AI minimax + alpha-beta trong Web Worker, ba mức · v1 có đủ undo, lịch 
 thống kê, resume, gợi ý, âm thanh WebAudio · chừa seam Ducker ID nhưng không viết code
 danh tính nào.
 
-**Dừng ở bước:** chưa có `MASTER.md`, nên bước kế tiếp là `design-bootstrap` (palette +
-cặp font + phần tử đặc trưng, kèm ràng buộc tương phản quân/bàn của NFR-A11Y-01), rồi
-mockup canvas ba khổ 375 / 768 / 1440 và cửa duyệt mockup. **Chưa có dòng code nào, và
-chưa được viết dòng nào trước khi mockup được duyệt.**
+`design-bootstrap` đã chạy xong: `docs/design-system/gomoku/MASTER.md` + ADR-0008. Hướng
+là **giấy ô li**, quân phân biệt bằng hình `X`/`O`, phần tử đặc trưng là nét bút gạch qua
+năm quân thắng. Mọi tỉ lệ tương phản trong `MASTER.md` đều đã tính, không ước lượng.
 
-**Đang chặn:** repo chưa có remote — cần tạo `web-game-gomoku` trên GitHub trước khi
-deploy (mốc 7) có nghĩa. Không chặn các mốc 1–6.
+**Dừng ở bước: đang chờ duyệt mockup.** Canvas 14 artboard đã dựng và đã đưa link — bốn
+màn (Bắt đầu · Đang chơi · Kết ván · Xem lại) × ba khổ 375/768/1440, cộng một artboard
+chế độ tối và một bàn kéo–zoom–đánh được thật. File làm việc nằm **ngoài repo**
+(scratchpad `mockup/`, sinh bằng `build.mjs`) vì `.claude/CLAUDE.md` quy định không lưu
+mockup trong repo. **Chưa có dòng code sản phẩm nào, và không được viết dòng nào trước
+khi mockup được duyệt.**
+
+**Một câu hỏi thuật ngữ đang mở, cần trả lời trước mốc 1:** quân nằm **trong ô** hay
+**trên giao điểm**? Mockup và token `--mark-inset` của `MASTER.md` giả định *trong ô* —
+đúng cách người ta đánh caro trên vở ô li. Nhưng `journeys.md` (US-01) và ADR-0007 đang
+viết "giao điểm" theo quy ước gomoku quốc tế. Đây là sửa **chữ**, không đổi bản chất
+quyết định của ADR-0007; chờ người dùng chốt rồi sửa hai chỗ đó.
+
+**Đang chặn:** không còn. Remote đã nối: `https://github.com/LeVanAnhDuc/web-game-gomoku.git`,
+`origin/main` tồn tại, việc đang làm nằm trên branch `docs/v1-design`.
 
 ## Việc tiếp theo
 
