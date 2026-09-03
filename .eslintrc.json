@@ -1,0 +1,38 @@
+{
+  "extends": ["next/core-web-vitals", "prettier"],
+  "rules": {
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          {
+            "group": ["@/game/render/*", "@/hooks/*", "@/views/*", "react", "react-dom"],
+            "message": "game/core khong duoc import render, hooks, views hay React (bat bien 4). Neu ban dang o ngoai game/core thi bo qua canh bao nay khong duoc — hay sua import."
+          }
+        ]
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["src/hooks/**", "src/views/**", "src/app/**", "src/game/render/**"],
+      "rules": { "no-restricted-imports": "off" }
+    },
+    {
+      "files": ["src/game/core/**", "src/game/ai/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["@/game/render/*", "@/hooks/*", "@/views/*", "react", "react-dom"],
+                "message": "game/core va game/ai la TypeScript thuan: khong DOM, khong React, khong render (bat bien 4)."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
