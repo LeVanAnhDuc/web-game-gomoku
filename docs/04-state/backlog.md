@@ -38,11 +38,22 @@ design của nó nằm trong tier-1 docs cộng các ADR.
 3. **Chế độ tối chưa xem tận mắt.** Đã kiểm 14 biến của khối `@media (prefers-color-scheme: dark)`
    qua CSSOM trên app đang chạy — đủ để bắt lỗi đánh máy, KHÔNG đủ để nói nó trông đúng.
 
+**Hạ tầng CI đã xong một phần của mốc 7** (2026-09-03, ADR-0010): ba workflow port từ
+`web-app-calculate-badminton` — `ci.yml` gác pull request, `deploy.yml` build và publish
+`out/` lên Pages, `release.yml` suy version từ Conventional Commits rồi tag kèm
+`--generate-notes`. Hợp đồng commit và hợp đồng README nằm ở **`CLAUDE.md` gốc**, là file
+được commit, vì quy tắc mà CI đọc phải sống sót qua một lần clone.
+
+**Từ giờ commit message là hạ tầng:** `feat:` đẩy minor version **và** buộc cập nhật
+`README.md` §Features trong cùng branch. Sai tiền tố là sai version, và không có gì bắt
+được.
+
 **Dừng ở bước:** tiếp theo là mốc 3 — engine AI thật (patterns, evaluate, candidates,
 search, levels, Worker), và **xoá** `src/game/ai/greedy.ts`.
 
-**Đang chặn:** không có gì chặn mốc 3. Mốc 7 (deploy) cần bật GitHub Pages trong
-Settings của repo — việc đó phải do người có quyền làm, không phải do code.
+**Đang chặn:** không có gì chặn mốc 3. `deploy.yml` sẽ **đỏ ở bước `configure-pages`**
+tới khi có người bật Settings → Pages → Source: *GitHub Actions*. Không code nào bật
+được, và cái đỏ đó nghĩa là đúng một điều: chưa ai bật.
 
 ## Việc tiếp theo
 
@@ -53,7 +64,8 @@ Settings của repo — việc đó phải do người có quyền làm, không 
 | Mốc 4 — storage: repository, resume, thống kê | FR-11 · FR-12 | trung bình | Cần cho US-02 và US-04. Cũng là chỗ đặt seam Ducker ID |
 | Mốc 5 — lịch sử nước đi, xem lại ván, gợi ý | FR-08 · FR-09 · FR-10 | trung bình | Đều đi trên `moves` đã có từ mốc 1. Danh sách nước đi có chỗ trống chờ sẵn trong cột phải |
 | Mốc 6 — con trỏ bàn phím + `aria-live` đầy đủ, âm thanh, cài đặt | FR-14 · FR-15 · FR-16 | trung bình | `NFR-A11Y-02` không đạt tới khi mốc này xong. `drawCursorRing` đã có, chưa ai gọi |
-| Mốc 7 — E2E Playwright, deploy GitHub Pages, đo `NFR-PERF-09` | NFR-PERF-09 | trung bình | E2E cần RNG seed được (đã có từ mốc 2). Deploy cần bật Pages trong Settings |
+| Mốc 7 — E2E Playwright và đo `NFR-PERF-09` | NFR-PERF-09 | trung bình | Workflow deploy đã có (ADR-0010); còn thiếu E2E và một lần chạy Lighthouse. E2E cần RNG seed được, đã có từ mốc 2 |
+| Bật GitHub Pages trong Settings của repo | — | cao | Một cú bấm, và nó là thứ duy nhất chặn `deploy.yml`. Chỉ người có quyền trên repo làm được |
 | Xem chế độ tối tận mắt ở cả bốn khổ | NFR-A11Y-01 | thấp | Token đã đúng; còn thiếu một lần nhìn |
 
 ## Nợ kỹ thuật — cố ý làm tạm

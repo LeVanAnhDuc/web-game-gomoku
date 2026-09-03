@@ -1,8 +1,9 @@
 name: CI
 
+# Chỉ chạy trên pull request. Push vào `main` đã được `deploy.yml` gác (typecheck +
+# test + build) và `release.yml` gác lại một lần nữa trước khi tag, nên để CI chạy
+# thêm ở đó là ba lần cùng một bộ test cho một cú push.
 on:
-  push:
-    branches: [main]
   pull_request:
 
 jobs:
@@ -13,7 +14,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: yarn
 
       - name: Install
@@ -30,6 +31,8 @@ jobs:
 
       - name: Static export builds
         run: yarn build
+        env:
+          GITHUB_PAGES: 'true'
 
       # NFR-SEC-05: dependency không có lỗ hổng mức high trở lên.
       # `|| true` là CỐ Ý và là nợ có ghi: yarn classic không có cờ lọc theo mức,
