@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: yarn
+
+      - name: Install
+        run: yarn install --frozen-lockfile
+
+      - name: Typecheck
+        run: yarn typecheck
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Unit tests
+        run: yarn test
+
+      - name: Static export builds
+        run: yarn build
+
+      # NFR-SEC-05: dependency không có lỗ hổng mức high trở lên.
+      # `|| true` là CỐ Ý và là nợ có ghi: yarn classic không có cờ lọc theo mức,
+      # nên bước này hiện chỉ để BÁO, chưa chặn. Xem backlog.md §Nợ kỹ thuật.
+      - name: Audit (báo, chưa chặn)
+        run: yarn audit --level high || true

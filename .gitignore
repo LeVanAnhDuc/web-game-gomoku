@@ -4,3 +4,14 @@
 .env
 .env.*
 !.env.example
+
+# Node / Next
+/node_modules/
+/.next/
+/out/
+/coverage/
+*.tsbuildinfo
+next-env.d.ts
+
+# Playwright MCP artefacts (anh chup, snapshot) — khong thuoc repo
+/.playwright-mcp/

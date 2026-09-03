@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Hex chép nguyên văn từ docs/design-system/gomoku/MASTER.md §1 (sáng) và §2 (tối).
+ * Đây là BẢN SAO DUY NHẤT của palette trong code: Tailwind trỏ vào các biến này
+ * (tailwind.config.ts) và canvas đọc chính chúng (game/render/palette.ts).
+ * Cần một màu chưa có ở đây nghĩa là cần sửa MASTER.md và ghi ADR — không phải
+ * nghĩ ra một hex tại chỗ (MASTER.md §9).
+ */
+:root {
+  --paper: #f7f3e8;
+  --paper-raised: #fffdf7;
+  --rule-minor: #dcd3be;
+  --rule-major: #c7bca3;
+  --ink: #2a2a28;
+  --ink-strong: #12100e;
+  --ink-muted: #6b6459;
+  --mark-human: #12100e;
+  --mark-ai: #b4453c;
+  --win: #15803d;
+  --win-casing: #f7f3e8;
+  --focus: #1d4ed8;
+  --border: #8e846d;
+  --danger: #8f1d14;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #191c20;
+    --paper-raised: #22262c;
+    --rule-minor: #333a42;
+    --rule-major: #4a535d;
+    --ink: #e8e6e1;
+    --ink-strong: #fdfcfa;
+    --ink-muted: #9aa3ad;
+    --mark-human: #e6edf5;
+    --mark-ai: #ce6a62;
+    --win: #4ade80;
+    --win-casing: #191c20;
+    --focus: #7aa7ff;
+    --border: #6b7684;
+    --danger: #f2938c;
+  }
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+/* MASTER.md §8 và §9: focus phải thấy được, và không đổi trạng thái tức thời. */
+@layer base {
+  button,
+  a {
+    transition:
+      background-color 150ms ease,
+      border-color 150ms ease,
+      color 150ms ease,
+      opacity 150ms ease;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+}
+
+/* NFR-A11Y-05. Giữ transition của hover/focus: đó là phản hồi, không phải hiệu ứng. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
