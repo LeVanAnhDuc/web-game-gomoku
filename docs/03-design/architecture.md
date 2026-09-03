@@ -72,7 +72,7 @@ dựng tay, không cần browser. Nó cũng là bất biến — xem `invariants
 **Người chơi đánh một nước rồi máy đáp lại** — mọi thứ khác trong game đi theo luồng này.
 
 1. `views` nhận sự kiện con trỏ, đưa toạ độ màn hình cho `render/camera` đổi thành toạ độ
-   bàn, lấy giao điểm gần nhất trong bán kính hit-test.
+   bàn, lấy ô gần nhất trong bán kính hit-test.
 2. Trên cảm ứng, lần tap đầu chỉ đặt quân xem trước; phải xác nhận mới sang bước 3. Trên
    chuột thì đi thẳng sang bước 3 (ADR-0007).
 3. `hooks` gọi `core/game.applyMove`. `core` kiểm nước hợp lệ, thêm vào `moves`, cập nhật

@@ -57,7 +57,7 @@ nào là biến file này thành thứ không ai tin.
 | --- | --- | --- |
 | NFR-A11Y-01 | Tương phản chữ thường ≥ 4.5:1, chữ lớn ≥ 3:1. **Áp cả cho quân với nền bàn** — đây là ràng buộc cho palette, không phải cho chữ | DevTools + kiểm palette trong `MASTER.md` |
 | NFR-A11Y-02 | Mọi hành động thao tác được bằng bàn phím — kể cả **đánh quân và di chuyển bàn** — và focus luôn thấy được | Thử tay: chơi trọn một ván không dùng chuột · một test E2E |
-| NFR-A11Y-03 | **Sửa cho khớp bàn vô hạn (ADR-0007).** Mọi nút thật ≥ 44×44px. Giao điểm trên bàn nhỏ hơn thế và không thể lớn hơn, nên bù bằng: hit-test bắt giao điểm gần nhất trong bán kính rộng hơn ô, cộng bước xác nhận trên cảm ứng | Review mockup cho các nút · test hit-test ở nhiều mức phóng |
+| NFR-A11Y-03 | **Sửa cho khớp bàn vô hạn (ADR-0007).** Mọi nút thật ≥ 44×44px. Ô trên bàn nhỏ hơn thế và không thể lớn hơn, nên bù bằng: hit-test bắt tâm ô gần nhất trong một bán kính rộng hơn ô, cộng bước xác nhận trên cảm ứng | Review mockup cho các nút · test hit-test ở nhiều mức phóng |
 | NFR-A11Y-04 | Mọi input trong cài đặt có label liên kết; thông báo đọc được bởi screen reader | Review |
 | NFR-A11Y-05 | Tôn trọng `prefers-reduced-motion` — camera nhảy thẳng thay vì trượt, không có animation thắng | Bật thiết lập rồi thử tay |
 | NFR-A11Y-06 | Canvas có nhãn, và có vùng `aria-live="polite"` đọc mỗi nước đi kèm toạ độ, cùng kết quả ván | Thử với screen reader một lượt |
@@ -75,7 +75,7 @@ nào là biến file này thành thứ không ai tin.
 | ID | Ngưỡng | Cách kiểm |
 | --- | --- | --- |
 | NFR-REL-01 | Mọi tác vụ bất đồng bộ có timeout và nhánh xử lý lỗi. Worker: 5s, hết hạn thì dùng nước dự phòng | Test: worker không trả lời → game vẫn đi tiếp |
-| NFR-REL-02 | Đánh hai lần thật nhanh vào cùng một giao điểm chỉ tạo **một** nước | Test |
+| NFR-REL-02 | Đánh hai lần thật nhanh vào cùng một ô chỉ tạo **một** nước | Test |
 | NFR-REL-03 | Không có trạng thái chờ vô hạn trên UI. "Máy đang nghĩ" luôn kết thúc, kể cả khi worker chết | Thử tay: kill worker trong DevTools |
 | NFR-REL-04 | `localStorage` bị chặn, đầy, hoặc dữ liệu hỏng → về mặc định và chơi được. Được phép **quên**, không được phép **vỡ** | Test với `localStorage` giả ném lỗi · thử tay trong cửa sổ ẩn danh |
 

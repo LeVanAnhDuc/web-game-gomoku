@@ -35,15 +35,15 @@ Kết quả được cộng vào thống kê của đúng mức khó vừa chơi
 **Điều gì có thể sai:**
 
 - Kéo bàn bị hiểu thành đánh quân, hoặc ngược lại — ngón tay luôn di một chút khi tap.
-- Tap trượt sang giao điểm bên cạnh. Ở caro, một nước nhầm là mất ván.
-- Đánh vào giao điểm đã có quân.
+- Tap trượt sang ô bên cạnh. Ở caro, một nước nhầm là mất ván.
+- Đánh vào ô đã có quân.
 - Người chơi đánh nước tiếp theo trước khi máy kịp trả lời nước trước.
 - Máy nghĩ quá lâu, hoặc luồng tính toán chết hẳn — không được để trạng thái "máy đang
   nghĩ" kéo vô hạn.
 - Ván kết thúc mà chuỗi thắng đang nằm ngoài khung nhìn.
 - Người chơi đổi tab giữa lúc máy đang nghĩ rồi quay lại.
 - Trình duyệt chặn âm thanh — phải im lặng, không được vỡ.
-- Người chơi thu phóng ra rất xa rồi đánh: giao điểm nhỏ hơn ngón tay nhiều lần.
+- Người chơi thu phóng ra rất xa rồi đánh: ô nhỏ hơn ngón tay nhiều lần.
 
 **Chức năng liên quan:** FR-01 · FR-02 · FR-03 · FR-04 · FR-05 · FR-06 · FR-12 · FR-14
 

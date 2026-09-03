@@ -157,7 +157,7 @@ bóng** — nó là tờ giấy, không phải vật thể nổi.
 | `--mark-inset` | 22% của cạnh ô | quân không chạm kẻ ô |
 | `--cursor-ring-width` | 2px, cộng 2px offset | vòng con trỏ bàn phím |
 | `--win-stroke` | 4px nét + 2px viền mỗi bên | xem mục 3c |
-| `--hit-radius` | 0.75 × cạnh ô | bán kính bắt giao điểm, rộng hơn ô (ADR-0007) |
+| `--hit-radius` | 0.75 × cạnh ô | bán kính bắt tâm ô gần nhất, rộng hơn ô (ADR-0007 · ADR-0009) |
 | `--preview-opacity` | 0.45 | quân xem trước trên cảm ứng |
 
 ## 7. Phần tử đặc trưng — một cái duy nhất
@@ -281,6 +281,6 @@ Thêm cho dự án này:
 - [ ] Nét gạch chuỗi thắng có viền và thấy rõ khi bắt qua **cả** quân X và quân O
 - [ ] Chuỗi thắng không bị lớp phủ nào che
 - [ ] Vòng con trỏ bàn phím thấy được ở **cả** mức phóng nhỏ nhất và lớn nhất
-- [ ] Mọi nút thật ≥ 44×44px (giao điểm bàn thì không, đã xử lý bằng `--hit-radius`)
+- [ ] Mọi nút thật ≥ 44×44px (ô trên bàn thì không, đã xử lý bằng `--hit-radius`)
 - [ ] Cả hai chế độ sáng và tối đều được kiểm, không chỉ chế độ mặc định
 - [ ] Không có hex nào trong mockup mà không có trong mục 1 hoặc mục 2

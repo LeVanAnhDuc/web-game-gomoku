@@ -16,6 +16,7 @@
 | [ADR-0006](0006-async-repository-seam-without-identity-interface.md) | Repository async ngay từ v1, nhưng chưa viết interface danh tính nào cho Ducker ID | 2026-09-03 | accepted |
 | [ADR-0007](0007-placement-interaction-depends-on-pointer-type.md) | Cách đánh quân khác nhau theo loại con trỏ | 2026-09-03 | accepted |
 | [ADR-0008](0008-paper-grid-palette-with-shape-coded-marks.md) | Palette giấy ô li, quân phân biệt bằng hình, và nét gạch thắng làm phần tử đặc trưng | 2026-09-03 | accepted |
+| [ADR-0009](0009-marks-sit-inside-cells-not-on-intersections.md) | Quân đặt trong ô, không trên giao điểm — và tên gọi kèm theo | 2026-09-03 | accepted |
 <!-- END:auto -->
 
 Trạng thái: `accepted` · `superseded by ADR-00xx` · `deprecated`
