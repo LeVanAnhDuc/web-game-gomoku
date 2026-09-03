@@ -1,4 +1,4 @@
-# Tài liệu dự án `web-game/web-game-gomoku`
+# Tài liệu dự án `web-game-gomoku`
 
 ## Bản đồ
 
