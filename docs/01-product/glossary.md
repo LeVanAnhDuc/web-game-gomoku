@@ -1,7 +1,7 @@
 # Thuật ngữ
 
 > **Trả lời:** Khái niệm này gọi là gì trong code, và hiện ra sao trên UI?
-> **Trạng thái:** 🟡 một phần — tên đã khoá, cột "tên trong code" chờ code mốc 1 xác nhận
+> **Trạng thái:** 🟢 đủ — đã đối chiếu với `src/game/core/types.ts` thật ở mốc 1
 > **Cập nhật:** 2026-09-03 · commit —
 > **Cập nhật khi:** xuất hiện một khái niệm nghiệp vụ mới trong code hoặc UI
 
@@ -17,7 +17,9 @@ KHÔNG chứa: giải thích nghiệp vụ dài (-> overview.md).
 GHI CHÚ 2026-09-03: mọi dòng dưới đây đã xuất hiện trên UI — mockup v1 đã được duyệt —
 và cột "tên trong code" do ADR-0009 khoá TRƯỚC khi có code. Đó là cố ý: khoá tên trước
 là đúng việc của file này, vì tên sai trong kiểu dữ liệu lõi sẽ nhân bản ra mọi file
-dùng nó. Trạng thái giữ ở 🟡 tới khi mốc 1 xác nhận đúng những tên này trong code thật.
+dùng nó. Đã đối chiếu với code thật ở mốc 1 (2026-09-03): `Cell`, `Mark`, `Side`, `Point`,
+`Move`, `Board`, `GameState`, `Level`, `Camera` đúng như bảng dưới. `Stone` không xuất
+hiện ở đâu trong `src/`.
 -->
 
 | Thuật ngữ | Định nghĩa một câu | Tên trong code | Tên trên UI (VI) | Tên trên UI (EN) |

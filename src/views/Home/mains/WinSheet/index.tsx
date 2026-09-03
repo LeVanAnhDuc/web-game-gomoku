@@ -9,24 +9,43 @@ function titleFor(status: GameStatus): string {
 }
 
 /**
- * Sheet neo ĐÁY, không phải modal giữa màn.
- * MASTER.md §9: không lớp phủ nào được che chuỗi thắng.
+ * Kết ván. Trên mobile/tablet là sheet neo ĐÁY, không phải modal giữa màn — MASTER.md
+ * §9: không lớp phủ nào được che chuỗi thắng. Trên desktop nó nằm trong cột phải,
+ * nên nó không che gì cả.
  */
 export function WinSheet({
   status,
   moveCount,
+  variant,
   onPlayAgain,
 }: {
   status: GameStatus;
   moveCount: number;
+  variant: 'sheet' | 'panel';
   onPlayAgain(): void;
 }) {
   if (status.kind === 'playing') return null;
 
+  const panel = variant === 'panel';
+
   return (
-    <div className="flex-none rounded-t-[10px] border-t border-edge bg-raised p-6 shadow-sheet">
-      <p className="text-2xl font-bold leading-8 text-ink-strong">{titleFor(status)}</p>
-      <p className="mb-5 mt-1.5 font-mono text-sm text-ink-muted">
+    <div
+      className={
+        panel
+          ? 'border-t border-edge p-4'
+          : 'flex-none rounded-t-[10px] border-t border-edge bg-raised p-6 shadow-sheet'
+      }
+    >
+      <p
+        className={
+          panel
+            ? 'text-xl font-bold leading-7 text-ink-strong'
+            : 'text-2xl font-bold leading-8 text-ink-strong'
+        }
+      >
+        {titleFor(status)}
+      </p>
+      <p className="mb-4 mt-1.5 font-mono text-sm text-ink-muted">
         {strings.moveCount(moveCount)}
       </p>
       <button

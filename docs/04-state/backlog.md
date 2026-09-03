@@ -18,54 +18,52 @@ KHÔNG chứa: tính năng ngoài phạm vi (-> 01-product/overview.md §Non-Goa
 
 ## Đang làm
 
-**Cả pha thiết kế v1 đã xong và đã được duyệt** (2026-09-03): brainstorm, design system,
-mockup. Không có tài liệu design riêng cho v1 — v1 **là** cả sản phẩm chứ không phải một
-feature, nên design của nó nằm luôn trong tier-1 docs cộng chín ADR.
+**Mốc 1 và mốc 2 đã xong** (2026-09-03). `yarn dev` là đánh caro được với máy: bàn vô
+hạn kéo và thu phóng được, đánh quân theo luật con trỏ của ADR-0007, máy đáp lại, ván
+kết thúc đúng luật chặn hai đầu với nét gạch qua chuỗi thắng. 89 unit test xanh,
+`typecheck` · `lint` · `build` đều qua. Đã xem thật trên app đang chạy ở 375 / 768 /
+1024 / 1440 và đi trọn một ván.
 
-Đã chốt: một người chống AI · client-only, tĩnh, 0đ hạ tầng · luật caro Việt chặn hai đầu
-xét trên đoạn cực đại · bàn **vô hạn** cuộn tự do, quân nằm **trong ô** · Next.js 15
-static export + Canvas 2D · AI minimax + alpha-beta trong Web Worker, ba mức, mức Dễ yếu
-bằng nhiễu có chủ đích · v1 có đủ undo, lịch sử, xem lại, thống kê, resume, gợi ý, âm
-thanh WebAudio · chừa seam Ducker ID nhưng **không** viết code danh tính nào.
+Xong trước đó: brainstorm v1 · design system (`MASTER.md`) · mockup 14 artboard đã
+duyệt · 9 ADR. Không có tài liệu design riêng cho v1 — v1 **là** cả sản phẩm, nên
+design của nó nằm trong tier-1 docs cộng các ADR.
 
-Design system ở `docs/design-system/gomoku/MASTER.md`: hướng **giấy ô li**, quân phân biệt
-bằng **hình** `X`/`O` chứ không bằng màu, phần tử đặc trưng là nét bút gạch qua năm quân
-thắng. Mọi tỉ lệ tương phản trong file đó đều đã tính, không ước lượng.
+**Ba điều CHƯA đạt ở mốc này, ghi ra thay vì lặng lẽ bỏ qua:**
 
-Mockup 14 artboard (bốn màn × ba khổ 375/768/1440, một artboard chế độ tối, một bàn
-kéo–zoom–đánh được thật) đã duyệt. File làm việc của mockup nằm **ngoài repo** — scratchpad
-`mockup/`, sinh bằng `build.mjs` — vì `.claude/CLAUDE.md` quy định không lưu mockup trong
-repo. Muốn sửa mockup thì sửa `build.mjs` rồi seed lại, không sửa file đã seed.
+1. **`NFR-A11Y-02` chưa đạt.** Chưa đánh quân được bằng bàn phím — đó là FR-15, mốc 6.
+   Hiện chỉ `Tab` qua các nút được, và vòng focus có thấy được.
+2. **`NFR-PERF-05` chưa đo.** Chưa chạy Performance panel để xem kéo bàn có giữ 60fps
+   trên máy tầm trung và trên một điện thoại thật. Chưa đo thì chưa tối ưu — hướng xử
+   lý nếu không đạt đã ghi ở `specs/game-core-and-board/design.md` §6.
+3. **Chế độ tối chưa xem tận mắt.** Đã kiểm 14 biến của khối `@media (prefers-color-scheme: dark)`
+   qua CSSOM trên app đang chạy — đủ để bắt lỗi đánh máy, KHÔNG đủ để nói nó trông đúng.
 
-**Dừng ở bước:** tiếp theo là `superpowers:writing-plans` cho **mốc 1 + mốc 2** (nhân game
-và bàn vẽ được), rồi worktree, rồi TDD. **Chưa có dòng code sản phẩm nào.**
+**Dừng ở bước:** tiếp theo là mốc 3 — engine AI thật (patterns, evaluate, candidates,
+search, levels, Worker), và **xoá** `src/game/ai/greedy.ts`.
 
-**Đang chặn:** không còn. Remote đã nối
-(`https://github.com/LeVanAnhDuc/web-game-gomoku.git`), `origin/main` tồn tại, việc đang
-làm nằm trên branch `docs/v1-design`.
+**Đang chặn:** không có gì chặn mốc 3. Mốc 7 (deploy) cần bật GitHub Pages trong
+Settings của repo — việc đó phải do người có quyền làm, không phải do code.
 
 ## Việc tiếp theo
 
-Bảy mốc, làm theo thứ tự. Mốc 2 là mốc đầu tiên xem được trên browser.
-
 | Việc | Liên quan | Ưu tiên | Vì sao ưu tiên đó |
 | --- | --- | --- | --- |
-| `writing-plans` → `docs/specs/game-core-and-board/plan.md` cho mốc 1 + 2 | FR-01 · FR-02 · FR-03 | cao | Checkbox trong `plan.md` là phòng tuyến chống nén context: đọc một cái là biết đang ở task mấy trên mấy |
-| Mốc 1 — scaffold + `game/core` (types, board, rules, game) + unit test | FR-03 · FR-07 | cao | Luật là hạt nhân; sai ở đây thì mọi thứ trên nó đều sai. Kiểm được mà chưa cần UI |
-| Mốc 2 — `render` + `camera` + `hooks` + UI tối giản, AI tạm greedy | FR-01 · FR-02 · FR-06 | cao | Mốc đầu tiên **đánh được với máy** trong browser. Bàn vô hạn là rủi ro lớn nhất, phải chạm thật sớm |
-| Mốc 3 — AI thật: patterns, evaluate, candidates, search, levels, worker | FR-04 · FR-05 | cao | Phần chiếm nhiều công sức nhất, và là thứ quyết định game có đáng chơi |
-| Mốc 4 — storage: repository, resume, thống kê | FR-11 · FR-12 · FR-13 | trung bình | Cần cho US-02 và US-04. Cũng là chỗ đặt seam Ducker ID |
-| Mốc 5 — hoàn nước, lịch sử, xem lại, gợi ý | FR-07 · FR-08 · FR-09 · FR-10 | trung bình | Đều đi trên `moves` đã có từ mốc 1, nên rẻ nếu làm sau mốc 4 |
-| Mốc 6 — con trỏ bàn phím + `aria-live`, âm thanh, cài đặt | FR-14 · FR-15 · FR-16 | trung bình | Đây là cái giá a11y của canvas (ADR-0001). Làm sớm hơn thì phải làm lại theo mỗi lần đổi UI |
-| Mốc 7 — E2E, deploy GitHub Pages, README `## Features` | — | trung bình | E2E cần RNG seed được từ mốc 3 |
-| Đưa `glossary.md` từ 🟡 lên 🟢 | — | thấp | Tên đã khoá ở ADR-0009, nhưng cột "tên trong code" chỉ được xác nhận khi `core/types.ts` có thật, ở mốc 1 |
-| Chốt số cho NFR-PERF-08 và NFR-PERF-09 | NFR-PERF-08 · NFR-PERF-09 | thấp | Hai ngưỡng cố ý để trống; chỉ điền được sau lần đo đầu ở mốc 7 |
+| Mốc 3 — AI thật: patterns, evaluate, candidates, search, levels, Worker; xoá `greedy.ts` | FR-04 · FR-05 | cao | Phần chiếm nhiều công sức nhất, và là thứ quyết định game có đáng chơi. Máy hiện tại thắng được người đánh hàng ngang, nhưng bỏ sót đòn đôi |
+| Đo `NFR-PERF-05` trên một điện thoại thật | NFR-PERF-05 | cao | Bàn vô hạn là rủi ro hiệu năng lớn nhất, và giờ đã có bàn thật để đo |
+| Mốc 4 — storage: repository, resume, thống kê | FR-11 · FR-12 | trung bình | Cần cho US-02 và US-04. Cũng là chỗ đặt seam Ducker ID |
+| Mốc 5 — lịch sử nước đi, xem lại ván, gợi ý | FR-08 · FR-09 · FR-10 | trung bình | Đều đi trên `moves` đã có từ mốc 1. Danh sách nước đi có chỗ trống chờ sẵn trong cột phải |
+| Mốc 6 — con trỏ bàn phím + `aria-live` đầy đủ, âm thanh, cài đặt | FR-14 · FR-15 · FR-16 | trung bình | `NFR-A11Y-02` không đạt tới khi mốc này xong. `drawCursorRing` đã có, chưa ai gọi |
+| Mốc 7 — E2E Playwright, deploy GitHub Pages, đo `NFR-PERF-09` | NFR-PERF-09 | trung bình | E2E cần RNG seed được (đã có từ mốc 2). Deploy cần bật Pages trong Settings |
+| Xem chế độ tối tận mắt ở cả bốn khổ | NFR-A11Y-01 | thấp | Token đã đúng; còn thiếu một lần nhìn |
 
 ## Nợ kỹ thuật — cố ý làm tạm
 
 | Chỗ nào | Đã đánh đổi gì | Vì sao chấp nhận | Khi nào buộc phải trả |
 | --- | --- | --- | --- |
-| `game/ai` — chưa có transposition table (ADR-0004). Chưa có file, sẽ thành `ai/search.ts` ở mốc 3 | AI search lại những thế bàn đã tính, nên đạt độ sâu thấp hơn mức có thể trong cùng ngân sách | Trên bàn vô hạn cần Zobrist hash trên toạ độ không có biên — là việc riêng, và chưa biết có cần | Nếu mức Khó không đạt độ sâu 6 trong 1500ms trên máy tầm trung (NFR-PERF-06) |
-| Mốc 2 dùng AI greedy tạm | Máy đánh kém, bỏ sót đòn đôi | Để có bàn đánh được trong browser trước khi đổ công vào engine thật | Bị thay hẳn ở mốc 3 — không phải nợ dài hạn, nhưng phải xoá thật, không để lại nhánh chết |
-| Dữ liệu lưu không migrate giữa các version khoá (ADR-0006) | Đổi cấu trúc lưu là mất ván đang chơi và mất thống kê của người chơi | v1 chưa có người chơi thật để mất dữ liệu | Ngay trước lần đổi cấu trúc lưu đầu tiên sau khi game có người chơi thật |
-| ADR-0002 và ADR-0007 mang chữ đã lỗi (`Stone`, "giao điểm") | Người đọc hai ADR đó phải đọc kèm ADR-0009 mới hiểu đúng | `decisions/README.md` quy định ADR `accepted` là append-only. Một bản ghi sửa được thì không còn là bản ghi | Không bao giờ — đây là cái giá cố định của append-only, ghi ở đây để không ai "dọn" nó |
+| `src/game/ai/greedy.ts` — cả file là bản tạm | Máy không nhìn trước nước nào, nên bỏ sót đòn đôi | Để có bàn đánh được trong browser trước khi đổ công vào engine thật; nó nằm sau đúng interface `Engine` mà mốc 3 sẽ hiện thực | Mốc 3. **Xoá file**, không để lại cờ bật/tắt |
+| `game/ai` chưa có transposition table (ADR-0004). Sẽ là `ai/search.ts` ở mốc 3 | AI search lại thế bàn đã tính, nên đạt độ sâu thấp hơn trong cùng ngân sách | Trên bàn vô hạn cần Zobrist hash trên toạ độ không biên — việc riêng, chưa biết có cần | Nếu mức Khó không đạt độ sâu 6 trong 1500ms (NFR-PERF-06) |
+| `core/game.applyMove` dựng lại bàn mỗi lần gọi — `O(n)` mỗi nước | Vài chục nghìn phép chèn Map cho một ván dài | **Chưa đo thấy**, và tối ưu trước khi đo là thêm phức tạp đổi lấy một con số chưa ai thấy | Khi đo `NFR-PERF-05` thấy nó xuất hiện trong profile |
+| `.github/workflows/ci.yml` — bước `yarn audit` có `|| true` | Lỗ hổng mức high không làm đỏ CI, chỉ hiện trong log | Yarn classic không có cờ lọc theo mức để chặn đúng ngưỡng của `NFR-SEC-05` | Khi chuyển sang một trình audit chặn được theo mức, hoặc khi có lỗ hổng high thật |
+| Dữ liệu lưu không migrate giữa các version khoá (ADR-0006) | Đổi cấu trúc lưu là mất ván đang chơi và mất thống kê | v1 chưa có người chơi thật để mất dữ liệu | Ngay trước lần đổi cấu trúc lưu đầu tiên sau khi game có người chơi thật |
+| ADR-0002 và ADR-0007 mang chữ đã lỗi (`Stone`, "giao điểm") | Người đọc hai ADR đó phải đọc kèm ADR-0009 | `decisions/README.md` quy định ADR `accepted` là append-only. Một bản ghi sửa được thì không còn là bản ghi | Không bao giờ — đây là cái giá cố định của append-only, ghi ở đây để không ai "dọn" nó |
+| Resize cửa sổ có thể đẩy thế trận ra ngoài khung nhìn | Người chơi phải bấm "Giữa" để thấy lại | Tự dịch khung nhìn khi resize là giật màn hình của người đang chơi — cái đó tệ hơn | Nếu người chơi phản hồi rằng bàn "biến mất" sau khi quay ngang máy |

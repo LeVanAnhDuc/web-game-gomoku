@@ -1,7 +1,7 @@
 # Yêu cầu phi chức năng
 
 > **Trả lời:** Ngưỡng nào áp cho **mọi** feature, để không phải nhắc lại từng lần?
-> **Trạng thái:** 🟢 đủ — trừ hai ngưỡng ghi rõ "chưa đo"
+> **Trạng thái:** 🟢 đủ — trừ NFR-PERF-09 ghi rõ "chưa đo"
 > **Cập nhật:** 2026-09-03 · commit —
 > **Cập nhật khi:** thêm loại tài nguyên mới · thêm nhóm người dùng · sau sự cố sinh ra ngưỡng mới
 
@@ -33,11 +33,12 @@ tái dùng một ID cũ cho một ý nghĩa mới, vì `grep` sẽ trả về c�
 | NFR-PERF-05 | Kéo và thu phóng bàn giữ 60fps trên máy tầm trung và trên một điện thoại thật | Performance panel của DevTools, ghi lại một lần kéo dài 5s |
 | NFR-PERF-06 | AI trả nước trong ngân sách của mức (Dễ 200ms · Thường 600ms · Khó 1500ms) ở ≥ 95% số nước | `stats.ms` mà worker trả về, ghi lại một ván đầy đủ ở mỗi mức |
 | NFR-PERF-07 | AI không chiếm main thread quá một frame (16ms) liên tục — mọi việc nặng nằm trong Worker | Performance panel: không có long task nào trên main thread khi AI đang nghĩ |
-| NFR-PERF-08 | Bundle JS (gzip) không vượt ngưỡng — **chưa đo, chưa có ngưỡng** | `next build` rồi đọc kích thước; chốt ngưỡng sau lần đo đầu |
+| NFR-PERF-08 | First Load JS ≤ **150 kB**. Đo lần đầu 2026-09-03: **111 kB** ở mốc 2 | `next build` rồi đọc cột First Load JS |
 | NFR-PERF-09 | Lần tải đầu trên mạng 4G mô phỏng không vượt ngưỡng — **chưa đo, chưa có ngưỡng** | Lighthouse với throttling 4G; chốt ngưỡng sau lần đo đầu |
 
-Hai dòng cuối cố ý không có số. Viết một con số nghe hợp lý vào đây trước khi đo lần
-nào là biến file này thành thứ không ai tin.
+NFR-PERF-08 đã có số thật từ `next build` ở mốc 2 (111 kB), và ngưỡng 150 kB được chọn
+từ chính con số đó. NFR-PERF-09 vẫn cố ý trống: chưa chạy Lighthouse lần nào, và viết
+một con số nghe hợp lý vào đó là biến file này thành thứ không ai tin.
 
 ## Security
 
