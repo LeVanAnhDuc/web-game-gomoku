@@ -59,6 +59,11 @@ tạo.
 rồi tin tài liệu của nó, cả hai đều không phải trọng tài. Trọng tài là lần chạy. Pages
 phải bật một lần bằng token có quyền admin; lệnh nằm trong `CLAUDE.md`.
 
+Ba release đầu ra **rỗng** — `--generate-notes` chỉ liệt kê pull request, mà repo chưa có
+PR nào. ADR-0013: giữ phần GitHub sinh và **thêm** changelog dựng từ chính commit subject,
+nhóm theo tiền tố. Từ đây một subject sai tiền tố vừa cho version sai vừa biến mất khỏi
+ghi chú.
+
 **Đang chặn:** không có gì.
 
 ## Việc tiếp theo
