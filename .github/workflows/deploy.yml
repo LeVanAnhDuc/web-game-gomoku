@@ -36,12 +36,11 @@ jobs:
         env:
           GITHUB_PAGES: 'true'
 
-      # `enablement: true` để chính workflow bật Pages qua API nếu repo chưa bật,
-      # thay vì bắt người ta vào Settings bấm tay. Đổi lại: workflow này SỬA THIẾT
-      # LẬP của repo, không chỉ đọc. Xem ADR-0011.
+      # KHÔNG dùng `enablement: true`. Đã thử: GITHUB_TOKEN mặc định deploy được lên
+      # một Pages site đã có, nhưng TẠO site thì "Resource not accessible by
+      # integration" — đó là thao tác quản trị repo. Pages được bật một lần bằng
+      # token admin, lệnh nằm trong CLAUDE.md. Xem ADR-0012.
       - uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - uses: actions/upload-pages-artifact@v3
         with:

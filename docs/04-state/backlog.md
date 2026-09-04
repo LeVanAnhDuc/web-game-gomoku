@@ -51,10 +51,15 @@ design của nó nằm trong tier-1 docs cộng các ADR.
 **Dừng ở bước:** tiếp theo là mốc 3 — engine AI thật (patterns, evaluate, candidates,
 search, levels, Worker), và **xoá** `src/game/ai/greedy.ts`.
 
-**Đang chặn:** không có gì. Lần chạy thật đầu tiên của `deploy.yml` đỏ ở
-`configure-pages` như dự đoán, nhưng chính thông báo lỗi chỉ ra rằng action có tham số
-`enablement` tự bật Pages được — nên câu "không code nào bật được" trong ADR-0010 §4 là
-**sai**, và ADR-0011 ghi lại cái đúng. Workflow giờ tự bật Pages ở lần chạy đầu.
+**Game đã sống: <https://levananhduc.github.io/web-game-gomoku/>** — deploy xanh, asset
+tải được, và đã chơi thử một ván trên bản deploy. Release `v1.0.0` do `release.yml` tự
+tạo.
+
+Đường tới đó mất hai vòng sai (ADR-0010 → 0011 → 0012): tôi tin thông báo lỗi của action
+rồi tin tài liệu của nó, cả hai đều không phải trọng tài. Trọng tài là lần chạy. Pages
+phải bật một lần bằng token có quyền admin; lệnh nằm trong `CLAUDE.md`.
+
+**Đang chặn:** không có gì.
 
 ## Việc tiếp theo
 
