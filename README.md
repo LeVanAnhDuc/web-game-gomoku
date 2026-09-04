@@ -6,8 +6,8 @@ is drawn in code on a canvas: no sprite sheet, no image files. No server, no sig
 
 **Play**: <https://levananhduc.github.io/web-game-gomoku/>
 
-**Status:** milestones 1 and 2 of 7 are done — the game is playable, the opponent is a
-deliberate stopgap. See [`docs/04-state/backlog.md`](docs/04-state/backlog.md).
+**Status:** milestones 1 to 3 of 7 are done — the game is playable and the opponent is
+real. See [`docs/04-state/backlog.md`](docs/04-state/backlog.md).
 
 Releases and the Pages deploy are automated from `main`; the version comes from
 Conventional Commit prefixes. The contract is in [`CLAUDE.md`](CLAUDE.md).
@@ -32,6 +32,17 @@ Conventional Commit prefixes. The contract is in [`CLAUDE.md`](CLAUDE.md).
   - Choose who moves first; the machine answers every move
   - Undo takes back your move **and** the machine's reply
   - Resign closes the game when it is no longer worth finishing
+
+- **An opponent that actually plays**
+
+  - Minimax with alpha-beta pruning, running in a Web Worker so the board never freezes
+  - Evaluation is built around **open ends**, not run length: a five blocked at both ends
+    is worth nothing, and broken shapes like `x x . x` count as the threats they are
+  - Three difficulties that differ in search depth, time budget and one more thing —
+    **Easy is weakened by occasionally not seeing your threat at all**, because a
+    shallower search still blocks perfectly and would never feel easy
+  - Hard reaches depth 6 inside its 1.5s budget; Easy answers in under 10ms
+  - Every level is reproducible from a seed, so a bug found while playing can be replayed
 
 - **Marks are told apart by shape, not by colour**
 
@@ -62,7 +73,7 @@ Conventional Commit prefixes. The contract is in [`CLAUDE.md`](CLAUDE.md).
 - **Framework**: Next.js 15 (App Router, `output: 'export'`), React 19, TypeScript strict
 - **Rendering**: Canvas 2D, drawn procedurally — no asset files
 - **Styling**: Tailwind CSS v3, lucide-react icons, self-hosted fonts via `next/font`
-- **Testing**: vitest + happy-dom (89 unit tests)
+- **Testing**: vitest + happy-dom (130 unit tests, including 25 tactical positions for the engine)
 - **Hosting**: static, intended for GitHub Pages
 
 ## Commands

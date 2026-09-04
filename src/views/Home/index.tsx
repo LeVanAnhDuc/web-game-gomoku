@@ -1,7 +1,7 @@
 'use client';
 
-import { useMemo, useState } from 'react';
-import { createGreedyEngine } from '@/game/ai/greedy';
+import { useEffect, useMemo, useState } from 'react';
+import { createWorkerEngine } from '@/game/ai/workerEngine';
 import { makeRng } from '@/game/ai/rng';
 import type { Level, Side } from '@/game/core/types';
 import { useBoardCanvas } from '@/hooks/useBoardCanvas';
@@ -20,8 +20,8 @@ const LEVEL_LABEL: Record<Level, string> = {
   hard: strings.levelHard,
 };
 
-/** Seed cố định ở mốc 2 nên một lỗi tìm ra lúc chơi thì tái tạo được. */
-const GREEDY_SEED = 1;
+/** Seed cố định nên một lỗi tìm ra lúc chơi thì tái tạo được. */
+const ENGINE_SEED = 1;
 
 /**
  * Hai bố cục, một cây component:
@@ -35,7 +35,10 @@ export function Home() {
   const [started, setStarted] = useState(false);
   const [level, setLevel] = useState<Level>('normal');
 
-  const engine = useMemo(() => createGreedyEngine(makeRng(GREEDY_SEED)), []);
+  const engine = useMemo(() => createWorkerEngine(makeRng(ENGINE_SEED)), []);
+  // Worker phải bị đóng khi component rời đi, nếu không mỗi lần hot-reload để lại
+  // một luồng còn sống đang giữ vài chục MB bảng ứng viên.
+  useEffect(() => () => engine.dispose(), [engine]);
   const game = useGame(engine, { first: 'human', level });
   const board = useBoardCanvas({
     moves: game.state.moves,

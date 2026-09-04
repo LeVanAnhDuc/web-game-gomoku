@@ -31,12 +31,12 @@ tái dùng một ID cũ cho một ý nghĩa mới, vì `grep` sẽ trả về c�
 | NFR-PERF-03 | ~~(bỏ)~~ truy vấn N+1 — không có datastore | — |
 | NFR-PERF-04 | ~~(bỏ)~~ index cho cột filter/sort — không có bảng nào | — |
 | NFR-PERF-05 | Kéo và thu phóng bàn giữ 60fps trên máy tầm trung và trên một điện thoại thật | Performance panel của DevTools, ghi lại một lần kéo dài 5s |
-| NFR-PERF-06 | AI trả nước trong ngân sách của mức (Dễ 200ms · Thường 600ms · Khó 1500ms) ở ≥ 95% số nước | `stats.ms` mà worker trả về, ghi lại một ván đầy đủ ở mỗi mức |
+| NFR-PERF-06 | AI trả nước trong ngân sách của mức (Dễ 200ms · Thường 600ms · Khó 1500ms) ở ≥ 95% số nước. Đo 2026-09-04 trên thế bàn trung cuộc, 7 lượt mỗi mức: Dễ **8ms**/độ sâu 2 · Thường **118ms**/độ sâu 4 · Khó **1221ms**/độ sâu 6 (max 1616ms, vượt ~7% vì hạn giờ chỉ kiểm mỗi 128 nút — ADR-0014) | `stats.ms` worker trả về · bench chạy tay trên `search` |
 | NFR-PERF-07 | AI không chiếm main thread quá một frame (16ms) liên tục — mọi việc nặng nằm trong Worker | Performance panel: không có long task nào trên main thread khi AI đang nghĩ |
-| NFR-PERF-08 | First Load JS ≤ **150 kB**. Đo lần đầu 2026-09-03: **111 kB** ở mốc 2 | `next build` rồi đọc cột First Load JS |
+| NFR-PERF-08 | First Load JS ≤ **150 kB**. Đo 2026-09-04 sau mốc 3: **112 kB** | `next build` rồi đọc cột First Load JS |
 | NFR-PERF-09 | Lần tải đầu trên mạng 4G mô phỏng không vượt ngưỡng — **chưa đo, chưa có ngưỡng** | Lighthouse với throttling 4G; chốt ngưỡng sau lần đo đầu |
 
-NFR-PERF-08 đã có số thật từ `next build` ở mốc 2 (111 kB), và ngưỡng 150 kB được chọn
+NFR-PERF-08 đã có số thật từ `next build` (112 kB), và ngưỡng 150 kB được chọn
 từ chính con số đó. NFR-PERF-09 vẫn cố ý trống: chưa chạy Lighthouse lần nào, và viết
 một con số nghe hợp lý vào đó là biến file này thành thứ không ai tin.
 

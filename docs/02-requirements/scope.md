@@ -23,8 +23,8 @@ KHÔNG chứa: cách hiện thực, ngưỡng phi chức năng (-> nfr.md), lý 
 | FR-01 | Bàn vô hạn: vẽ, kéo, thu phóng, về giữa | US-01 | xong |
 | FR-02 | Đánh quân | US-01 | xong |
 | FR-03 | Phát hiện thắng theo luật chặn hai đầu, tô chuỗi thắng | US-01 | xong |
-| FR-04 | Engine AI chạy trong Web Worker | US-01 | đang |
-| FR-05 | Ba mức khó | US-01 · US-04 | chưa |
+| FR-04 | Engine AI chạy trong Web Worker | US-01 | xong |
+| FR-05 | Ba mức khó | US-01 · US-04 | xong |
 | FR-06 | Chọn quân và chọn ai đi trước | US-01 · US-02 | xong |
 | FR-07 | Hoàn nước | US-03 | xong |
 | FR-08 | Lịch sử nước đi | US-03 | chưa |

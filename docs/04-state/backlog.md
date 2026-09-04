@@ -18,51 +18,32 @@ KHÔNG chứa: tính năng ngoài phạm vi (-> 01-product/overview.md §Non-Goa
 
 ## Đang làm
 
-**Mốc 1 và mốc 2 đã xong** (2026-09-03). `yarn dev` là đánh caro được với máy: bàn vô
-hạn kéo và thu phóng được, đánh quân theo luật con trỏ của ADR-0007, máy đáp lại, ván
-kết thúc đúng luật chặn hai đầu với nét gạch qua chuỗi thắng. 89 unit test xanh,
-`typecheck` · `lint` · `build` đều qua. Đã xem thật trên app đang chạy ở 375 / 768 /
-1024 / 1440 và đi trọn một ván.
+**Mốc 3 đã xong** (2026-09-04). Máy đánh bằng minimax + alpha-beta trong Web Worker, ba
+mức khó **thật sự khác nhau**, và `src/game/ai/greedy.ts` **đã bị xoá** — không cờ bật/tắt,
+không nhánh chết. `Engine` không đổi một dòng nào, đúng như ADR-0004 đã mua bằng việc để
+interface async từ mốc 2. 130 unit test xanh; `typecheck` · `lint` · `build` đều qua; đã
+chơi thử trên app đang chạy và máy chặn đúng.
 
-Xong trước đó: brainstorm v1 · design system (`MASTER.md`) · mockup 14 artboard đã
-duyệt · 9 ADR. Không có tài liệu design riêng cho v1 — v1 **là** cả sản phẩm, nên
-design của nó nằm trong tier-1 docs cộng các ADR.
+Ba thứ **phép đo và bộ test ép phải đổi**, chứ không phải thiết kế nghĩ ra:
 
-**Ba điều CHƯA đạt ở mốc này, ghi ra thay vì lặng lẽ bỏ qua:**
+1. **Điểm gốc bị tính sai hẳn.** Ban đầu `score = -negamax(con)`, tức chỉ đo nước đáp
+   của địch tệ đến đâu và **vứt mất giá trị nước của chính mình**. Hệ quả nghịch lý:
+   tạo bốn hở làm điểm TỤT, vì nó buộc địch chặn và nước chặn ấy đáng giá. Ba thế bàn
+   trong bộ chiến thuật bắt được. Đúng phải là `value − negamax(con)`, với cửa sổ
+   alpha-beta dịch theo `value`.
+2. **Điều kiện kích hoạt transposition table của ADR-0004 đã nổ, và phép đo bác bỏ cách
+   chữa đó** — chi phí nằm ở xếp hạng ứng viên mỗi nút, không ở thế bàn trùng lặp.
+   Thu hẹp 16/8 → 10/5 cho độ sâu 6 trong 1221ms, vừa sâu hơn vừa nhanh hơn (ADR-0014).
+3. **Cơ chế làm-yếu mức Dễ của ADR-0005 vô tác dụng** như đã mô tả: bỏ bước chặn nhanh
+   không ngăn search tự tìm lại nước chặn qua phần phòng thủ. Nay lượt mù bỏ luôn phần
+   phòng thủ khỏi hàm lượng giá (ADR-0015). Nó nằm trong tài liệu bốn ngày trước khi có
+   một test chứng minh nó sai.
 
-1. **`NFR-A11Y-02` chưa đạt.** Chưa đánh quân được bằng bàn phím — đó là FR-15, mốc 6.
-   Hiện chỉ `Tab` qua các nút được, và vòng focus có thấy được.
-2. **`NFR-PERF-05` chưa đo.** Chưa chạy Performance panel để xem kéo bàn có giữ 60fps
-   trên máy tầm trung và trên một điện thoại thật. Chưa đo thì chưa tối ưu — hướng xử
-   lý nếu không đạt đã ghi ở `specs/game-core-and-board/design.md` §6.
-3. **Chế độ tối chưa xem tận mắt.** Đã kiểm 14 biến của khối `@media (prefers-color-scheme: dark)`
-   qua CSSOM trên app đang chạy — đủ để bắt lỗi đánh máy, KHÔNG đủ để nói nó trông đúng.
+Cũng sửa trong lượt này: trang bị **khoá cuộn** (`overflow: hidden`) — `100dvh` sinh ra
+vòng luẩn quẩn thanh cuộn, một thanh xuất hiện là ăn 16px làm chiều kia tràn, kéo theo
+thanh còn lại. Bàn cờ mới là thứ cuộn, và nó cuộn bằng camera.
 
-**Hạ tầng CI đã xong một phần của mốc 7** (2026-09-03, ADR-0010): ba workflow port từ
-`web-app-calculate-badminton` — `ci.yml` gác pull request, `deploy.yml` build và publish
-`out/` lên Pages, `release.yml` suy version từ Conventional Commits rồi tag kèm
-`--generate-notes`. Hợp đồng commit và hợp đồng README nằm ở **`CLAUDE.md` gốc**, là file
-được commit, vì quy tắc mà CI đọc phải sống sót qua một lần clone.
-
-**Từ giờ commit message là hạ tầng:** `feat:` đẩy minor version **và** buộc cập nhật
-`README.md` §Features trong cùng branch. Sai tiền tố là sai version, và không có gì bắt
-được.
-
-**Dừng ở bước:** tiếp theo là mốc 3 — engine AI thật (patterns, evaluate, candidates,
-search, levels, Worker), và **xoá** `src/game/ai/greedy.ts`.
-
-**Game đã sống: <https://levananhduc.github.io/web-game-gomoku/>** — deploy xanh, asset
-tải được, và đã chơi thử một ván trên bản deploy. Release `v1.0.0` do `release.yml` tự
-tạo.
-
-Đường tới đó mất hai vòng sai (ADR-0010 → 0011 → 0012): tôi tin thông báo lỗi của action
-rồi tin tài liệu của nó, cả hai đều không phải trọng tài. Trọng tài là lần chạy. Pages
-phải bật một lần bằng token có quyền admin; lệnh nằm trong `CLAUDE.md`.
-
-Ba release đầu ra **rỗng** — `--generate-notes` chỉ liệt kê pull request, mà repo chưa có
-PR nào. ADR-0013: giữ phần GitHub sinh và **thêm** changelog dựng từ chính commit subject,
-nhóm theo tiền tố. Từ đây một subject sai tiền tố vừa cho version sai vừa biến mất khỏi
-ghi chú.
+**Dừng ở bước:** tiếp theo là mốc 4 — storage, resume, thống kê.
 
 **Đang chặn:** không có gì.
 
@@ -70,9 +51,8 @@ ghi chú.
 
 | Việc | Liên quan | Ưu tiên | Vì sao ưu tiên đó |
 | --- | --- | --- | --- |
-| Mốc 3 — AI thật: patterns, evaluate, candidates, search, levels, Worker; xoá `greedy.ts` | FR-04 · FR-05 | cao | Phần chiếm nhiều công sức nhất, và là thứ quyết định game có đáng chơi. Máy hiện tại thắng được người đánh hàng ngang, nhưng bỏ sót đòn đôi |
-| Đo `NFR-PERF-05` trên một điện thoại thật | NFR-PERF-05 | cao | Bàn vô hạn là rủi ro hiệu năng lớn nhất, và giờ đã có bàn thật để đo |
-| Mốc 4 — storage: repository, resume, thống kê | FR-11 · FR-12 | trung bình | Cần cho US-02 và US-04. Cũng là chỗ đặt seam Ducker ID |
+| Đo `NFR-PERF-05` và `NFR-PERF-07` trên một điện thoại thật | NFR-PERF-05 · NFR-PERF-07 | cao | Bàn vô hạn là rủi ro hiệu năng lớn nhất. `NFR-PERF-07` giờ cũng đo được: worker đã chạy thật, còn thiếu một lần mở Performance panel xác nhận không có long task |
+| **Mốc 4** — storage: repository, resume, thống kê | FR-11 · FR-12 | cao | Cần cho US-02 và US-04. Cũng là chỗ đặt seam Ducker ID |
 | Mốc 5 — lịch sử nước đi, xem lại ván, gợi ý | FR-08 · FR-09 · FR-10 | trung bình | Đều đi trên `moves` đã có từ mốc 1. Danh sách nước đi có chỗ trống chờ sẵn trong cột phải |
 | Mốc 6 — con trỏ bàn phím + `aria-live` đầy đủ, âm thanh, cài đặt | FR-14 · FR-15 · FR-16 | trung bình | `NFR-A11Y-02` không đạt tới khi mốc này xong. `drawCursorRing` đã có, chưa ai gọi |
 | Mốc 7 — E2E Playwright và đo `NFR-PERF-09` | NFR-PERF-09 | trung bình | Workflow deploy đã có (ADR-0010); còn thiếu E2E và một lần chạy Lighthouse. E2E cần RNG seed được, đã có từ mốc 2 |
@@ -82,8 +62,8 @@ ghi chú.
 
 | Chỗ nào | Đã đánh đổi gì | Vì sao chấp nhận | Khi nào buộc phải trả |
 | --- | --- | --- | --- |
-| `src/game/ai/greedy.ts` — cả file là bản tạm | Máy không nhìn trước nước nào, nên bỏ sót đòn đôi | Để có bàn đánh được trong browser trước khi đổ công vào engine thật; nó nằm sau đúng interface `Engine` mà mốc 3 sẽ hiện thực | Mốc 3. **Xoá file**, không để lại cờ bật/tắt |
-| `game/ai` chưa có transposition table (ADR-0004). Sẽ là `ai/search.ts` ở mốc 3 | AI search lại thế bàn đã tính, nên đạt độ sâu thấp hơn trong cùng ngân sách | Trên bàn vô hạn cần Zobrist hash trên toạ độ không biên — việc riêng, chưa biết có cần | Nếu mức Khó không đạt độ sâu 6 trong 1500ms (NFR-PERF-06) |
+| `game/ai` chưa có transposition table | AI search lại thế bàn đã tính | Điều kiện kích hoạt cũ đã nổ và **phép đo bác bỏ cách chữa**: chi phí ở xếp hạng ứng viên mỗi nút, không ở thế bàn trùng lặp. Thu hẹp bề rộng giải xong (ADR-0014) | Điều kiện MỚI: sau khi hàm lượng giá được viết lại cho rẻ đi — lúc đó số nút/giây tăng và thăm lại thế bàn mới thành phần đáng kể |
+| `ai/patterns.ts` dựng chuỗi ký tự rồi tra regex cho mỗi hướng, mỗi ứng viên, mỗi nút | Đây là chỗ tốn gần như toàn bộ thời gian search (~1ms một nút) | Đã đủ để `NFR-PERF-06` đạt sau khi thu hẹp bề rộng. Tối ưu thêm bây giờ là tối ưu thứ chưa ai đo là thiếu | Khi cần độ sâu hơn 6, hoặc khi bề rộng 10/5 tỏ ra bỏ sót đòn hay |
 | `core/game.applyMove` dựng lại bàn mỗi lần gọi — `O(n)` mỗi nước | Vài chục nghìn phép chèn Map cho một ván dài | **Chưa đo thấy**, và tối ưu trước khi đo là thêm phức tạp đổi lấy một con số chưa ai thấy | Khi đo `NFR-PERF-05` thấy nó xuất hiện trong profile |
 | `.github/workflows/ci.yml` — bước `yarn audit` có `|| true` | Lỗ hổng mức high không làm đỏ CI, chỉ hiện trong log | Yarn classic không có cờ lọc theo mức để chặn đúng ngưỡng của `NFR-SEC-05` | Khi chuyển sang một trình audit chặn được theo mức, hoặc khi có lỗ hổng high thật |
 | Dữ liệu lưu không migrate giữa các version khoá (ADR-0006) | Đổi cấu trúc lưu là mất ván đang chơi và mất thống kê | v1 chưa có người chơi thật để mất dữ liệu | Ngay trước lần đổi cấu trúc lưu đầu tiên sau khi game có người chơi thật |
