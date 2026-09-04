@@ -21,6 +21,8 @@
 | [ADR-0011](0011-workflow-enables-github-pages-itself.md) | Workflow tự bật GitHub Pages, không bắt người vào Settings bấm tay | 2026-09-04 | superseded by ADR-0012 |
 | [ADR-0012](0012-pages-enabled-once-by-hand-with-an-admin-token.md) | Bật Pages một lần bằng token có quyền admin; bỏ `enablement` khỏi workflow | 2026-09-04 | accepted |
 | [ADR-0013](0013-release-notes-also-built-from-commit-subjects.md) | Release note dựng thêm từ commit subject, không chỉ từ pull request | 2026-09-04 | accepted |
+| [ADR-0014](0014-narrow-and-deep-instead-of-a-transposition-table.md) | Hẹp mà sâu, thay vì transposition table | 2026-09-04 | accepted |
+| [ADR-0015](0015-deliberate-blindness-must-blind-the-evaluation-too.md) | Mù có chủ đích phải mù cả hàm lượng giá, không chỉ bỏ bước chặn nhanh | 2026-09-04 | accepted |
 <!-- END:auto -->
 
 Trạng thái: `accepted` · `superseded by ADR-00xx` · `deprecated`

@@ -49,6 +49,13 @@
 html,
 body {
   height: 100%;
+  /*
+   * Trang này KHÔNG BAO GIỜ cuộn — thứ cuộn là bàn cờ, và nó cuộn bằng camera trên
+   * canvas. Không có dòng này thì `100dvh` sinh ra một vòng luẩn quẩn: dvh bằng đúng
+   * chiều cao viewport kể cả phần dành cho thanh cuộn, nên chỉ cần một thanh xuất
+   * hiện là nó ăn 16px, làm chiều kia tràn, kéo theo thanh còn lại — và cả hai ở lại.
+   */
+  overflow: hidden;
 }
 
 body {
