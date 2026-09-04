@@ -78,6 +78,7 @@ jobs:
             esac
           fi
           echo "skip=false" >> "$GITHUB_OUTPUT"
+          echo "latest=$latest" >> "$GITHUB_OUTPUT"
           echo "next=$next" >> "$GITHUB_OUTPUT"
 
       - name: Create release
@@ -89,3 +90,48 @@ jobs:
             --target "$GITHUB_SHA" \
             --title "${{ steps.version.outputs.next }}" \
             --generate-notes
+
+      # `--generate-notes` lists merged PULL REQUESTS. Land work by merging a branch
+      # locally and pushing, and it lists nothing — v1.0.0 through v1.0.2 came out
+      # holding only a "Full Changelog" link. This step appends a changelog built
+      # from the commit subjects themselves, so the notes say something in either
+      # flow. It never replaces GitHub's part; PRs still get their richer list.
+      - name: Append a changelog built from commit subjects
+        if: steps.version.outputs.skip == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NEXT: ${{ steps.version.outputs.next }}
+          LATEST: ${{ steps.version.outputs.latest }}
+        run: |
+          if [ -n "$LATEST" ]; then range="$LATEST..HEAD"; else range="HEAD"; fi
+          # Merge commits repeat what their branch already says, so skip them.
+          subjects=$(git log --no-merges --pretty=%s "$range")
+
+          section() {
+            heading=$1
+            pattern=$2
+            lines=$(printf '%s\n' "$subjects" | grep -E "$pattern" || true)
+            if [ -n "$lines" ]; then
+              printf '### %s\n\n' "$heading"
+              printf '%s\n' "$lines" | sed 's/^/- /'
+              printf '\n'
+            fi
+          }
+
+          {
+            section 'Breaking changes' '^[a-z]+(\([^)]*\))?!:'
+            section 'Features'         '^feat(\([^)]*\))?:'
+            section 'Fixes'            '^fix(\([^)]*\))?:'
+            section 'Everything else'  '^(chore|docs|ci|refactor|test|style|perf|build)(\([^)]*\))?:'
+          } > commit-notes.md
+
+          # Nothing matched (no Conventional Commit subjects in range): leave the
+          # release exactly as GitHub generated it rather than posting an empty block.
+          if [ ! -s commit-notes.md ]; then
+            echo "khong co subject nao khop Conventional Commits — giu nguyen note tu dong"
+            exit 0
+          fi
+
+          gh release view "$NEXT" --json body --jq .body > generated-notes.md
+          cat commit-notes.md generated-notes.md > release-notes.md
+          gh release edit "$NEXT" --notes-file release-notes.md

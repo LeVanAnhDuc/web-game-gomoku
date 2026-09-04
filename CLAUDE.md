@@ -59,6 +59,12 @@ pushed alongside it.
 Subjects, bodies and identifiers are **English**; user-facing conversation is Vietnamese.
 Bodies explain reasoning, not the diff.
 
+**Your commit subject ends up in the release notes.** `--generate-notes` only lists
+merged pull requests, so `release.yml` also builds a changelog from the commit subjects
+in the range, grouped by prefix (ADR-0013). A subject that does not start with a
+Conventional Commit type is dropped from the notes silently — it still counts toward the
+version bump, it just does not appear anywhere a reader will look.
+
 ## README (REQUIRED — keep in sync with features)
 
 Releases are automated, README is not. Every user-facing feature (`feat:` commit) MUST
