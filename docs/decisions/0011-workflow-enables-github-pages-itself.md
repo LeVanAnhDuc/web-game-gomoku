@@ -1,7 +1,7 @@
 # ADR-0011 · Workflow tự bật GitHub Pages, không bắt người vào Settings bấm tay
 
 > **Ngày:** 2026-09-04
-> **Trạng thái:** accepted
+> **Trạng thái:** superseded by ADR-0012
 > **Liên quan:** ADR-0010
 
 ## 1. Bối cảnh

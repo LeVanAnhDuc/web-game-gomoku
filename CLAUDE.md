@@ -77,13 +77,18 @@ pushed together with them.
 push to `main`. It runs `typecheck` and `test` first, so a broken commit does not reach
 the live site.
 
-The `configure-pages` step passes `enablement: true`, so the workflow **enables Pages
-itself** on its first run if the repository has not got it on yet (ADR-0011). That means
-this workflow changes a repository setting, not just reads one — deliberate, and worth
-knowing before you copy it into a repo with a stricter policy.
+Live at <https://levananhduc.github.io/web-game-gomoku/>.
 
-If that step still fails, read the error: "Get Pages site failed" with `enablement: true`
-means the token lacked the rights, not that a switch is unflipped.
+Pages itself has to be switched on **once per repository**, with a token that has admin
+rights — the workflow's own `GITHUB_TOKEN` can deploy to an existing Pages site but
+cannot create one (ADR-0012, learned by running it):
+
+```bash
+gh api -X POST repos/<owner>/<repo>/pages -f build_type=workflow
+```
+
+Already done for this repo. If `configure-pages` ever fails with "Get Pages site failed",
+that command is the fix, not a change to the workflow.
 
 ## Workflow gates, and why there are three files
 

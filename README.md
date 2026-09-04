@@ -4,6 +4,8 @@ A Vietnamese-rules caro (gomoku) game you play against the machine, on a board t
 never ends. Five in a row wins — unless your opponent has blocked both ends. Everything
 is drawn in code on a canvas: no sprite sheet, no image files. No server, no sign-in.
 
+**Play**: <https://levananhduc.github.io/web-game-gomoku/>
+
 **Status:** milestones 1 and 2 of 7 are done — the game is playable, the opponent is a
 deliberate stopgap. See [`docs/04-state/backlog.md`](docs/04-state/backlog.md).
 
