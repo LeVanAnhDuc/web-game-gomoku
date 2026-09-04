@@ -51,9 +51,10 @@ design của nó nằm trong tier-1 docs cộng các ADR.
 **Dừng ở bước:** tiếp theo là mốc 3 — engine AI thật (patterns, evaluate, candidates,
 search, levels, Worker), và **xoá** `src/game/ai/greedy.ts`.
 
-**Đang chặn:** không có gì chặn mốc 3. `deploy.yml` sẽ **đỏ ở bước `configure-pages`**
-tới khi có người bật Settings → Pages → Source: *GitHub Actions*. Không code nào bật
-được, và cái đỏ đó nghĩa là đúng một điều: chưa ai bật.
+**Đang chặn:** không có gì. Lần chạy thật đầu tiên của `deploy.yml` đỏ ở
+`configure-pages` như dự đoán, nhưng chính thông báo lỗi chỉ ra rằng action có tham số
+`enablement` tự bật Pages được — nên câu "không code nào bật được" trong ADR-0010 §4 là
+**sai**, và ADR-0011 ghi lại cái đúng. Workflow giờ tự bật Pages ở lần chạy đầu.
 
 ## Việc tiếp theo
 
@@ -65,7 +66,6 @@ tới khi có người bật Settings → Pages → Source: *GitHub Actions*. Kh
 | Mốc 5 — lịch sử nước đi, xem lại ván, gợi ý | FR-08 · FR-09 · FR-10 | trung bình | Đều đi trên `moves` đã có từ mốc 1. Danh sách nước đi có chỗ trống chờ sẵn trong cột phải |
 | Mốc 6 — con trỏ bàn phím + `aria-live` đầy đủ, âm thanh, cài đặt | FR-14 · FR-15 · FR-16 | trung bình | `NFR-A11Y-02` không đạt tới khi mốc này xong. `drawCursorRing` đã có, chưa ai gọi |
 | Mốc 7 — E2E Playwright và đo `NFR-PERF-09` | NFR-PERF-09 | trung bình | Workflow deploy đã có (ADR-0010); còn thiếu E2E và một lần chạy Lighthouse. E2E cần RNG seed được, đã có từ mốc 2 |
-| Bật GitHub Pages trong Settings của repo | — | cao | Một cú bấm, và nó là thứ duy nhất chặn `deploy.yml`. Chỉ người có quyền trên repo làm được |
 | Xem chế độ tối tận mắt ở cả bốn khổ | NFR-A11Y-01 | thấp | Token đã đúng; còn thiếu một lần nhìn |
 
 ## Nợ kỹ thuật — cố ý làm tạm

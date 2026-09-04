@@ -18,6 +18,7 @@
 | [ADR-0008](0008-paper-grid-palette-with-shape-coded-marks.md) | Palette giấy ô li, quân phân biệt bằng hình, và nét gạch thắng làm phần tử đặc trưng | 2026-09-03 | accepted |
 | [ADR-0009](0009-marks-sit-inside-cells-not-on-intersections.md) | Quân đặt trong ô, không trên giao điểm — và tên gọi kèm theo | 2026-09-03 | accepted |
 | [ADR-0010](0010-automated-releases-from-conventional-commits.md) | Release tự động suy ra version từ Conventional Commits; README đồng bộ bằng tay | 2026-09-03 | accepted |
+| [ADR-0011](0011-workflow-enables-github-pages-itself.md) | Workflow tự bật GitHub Pages, không bắt người vào Settings bấm tay | 2026-09-04 | accepted |
 <!-- END:auto -->
 
 Trạng thái: `accepted` · `superseded by ADR-00xx` · `deprecated`

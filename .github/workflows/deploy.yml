@@ -36,7 +36,13 @@ jobs:
         env:
           GITHUB_PAGES: 'true'
 
+      # `enablement: true` để chính workflow bật Pages qua API nếu repo chưa bật,
+      # thay vì bắt người ta vào Settings bấm tay. Đổi lại: workflow này SỬA THIẾT
+      # LẬP của repo, không chỉ đọc. Xem ADR-0011.
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
       - uses: actions/upload-pages-artifact@v3
         with:
           # Next.js static export ra `out`, không phải `dist`.

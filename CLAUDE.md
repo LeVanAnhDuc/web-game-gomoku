@@ -77,10 +77,13 @@ pushed together with them.
 push to `main`. It runs `typecheck` and `test` first, so a broken commit does not reach
 the live site.
 
-**It does nothing until GitHub Pages is enabled for this repository** — Settings →
-Pages → Source: *GitHub Actions*. That is a repository setting, not something code can
-do. Until then the workflow fails at the `configure-pages` step, and that failure means
-exactly one thing: nobody has flipped that switch yet.
+The `configure-pages` step passes `enablement: true`, so the workflow **enables Pages
+itself** on its first run if the repository has not got it on yet (ADR-0011). That means
+this workflow changes a repository setting, not just reads one — deliberate, and worth
+knowing before you copy it into a repo with a stricter policy.
+
+If that step still fails, read the error: "Get Pages site failed" with `enablement: true`
+means the token lacked the rights, not that a switch is unflipped.
 
 ## Workflow gates, and why there are three files
 
